@@ -1,6 +1,5 @@
 {
 	"recommendations": [
-		"ms-vscode.powershell",
-		"redhat.vscode-xml"
+		"ms-vscode.powershell"
 	]
 }
