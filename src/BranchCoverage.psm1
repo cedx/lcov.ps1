@@ -1,0 +1,69 @@
+using module ./Tokens.psm1
+
+<#
+.SYNOPSIS
+	Provides details for branch coverage.
+#>
+class BranchData {
+
+	<#
+	.SYNOPSIS
+		The block number.
+	#>
+	[int] $BlockNumber = 0
+
+	<#
+	.SYNOPSIS
+		The branch number.
+	#>
+	[int] $BranchNumber = 0
+
+	<#
+	.SYNOPSIS
+		The line number.
+	#>
+	[int] $LineNumber = 0
+
+	<#
+	.SYNOPSIS
+		A number indicating how often this branch was taken.
+	#>
+	[int] $Taken = 0
+
+	<#
+	.SYNOPSIS
+		Returns a string representation of this object.
+	.OUTPUTS
+		The string representation of this object.
+	#>
+	[string] ToString() {
+		$value = "$([Tokens]::BranchData):$($this.LineNumber),$($this.BlockNumber),$($this.BranchNumber)";
+		return $this.Taken -gt 0 ? "$value,$($this.Taken)" : "$value,-";
+		return $this.Taken -gt 0 ? "$value,$($this.Taken)" : "$value,-";
+	}
+}
+
+<#
+.SYNOPSIS
+	Provides the coverage data of branches.
+#>
+class BranchCoverage {
+
+	<#
+	.SYNOPSIS
+		The coverage data.
+	#>
+	[BranchData[]] $Data = @()
+
+	<#
+	.SYNOPSIS
+		The number of branches found.
+	#>
+	[int] $Found = 0
+
+	<#
+	.SYNOPSIS
+		The number of branches hit.
+	#>
+	[int] $Hit = 0
+}
