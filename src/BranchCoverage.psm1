@@ -32,7 +32,7 @@ class BranchCoverage {
 		The string representation of this object.
 	#>
 	[string] ToString() {
-		$lines = [List[string]]::new($this.Data.Length + 2) # TODO ???? [List[string]] $this.Data.Length + 2
+		# $lines = [List[string]]::new($this.Data.Length + 2) # TODO ???? [List[string]] $this.Data.Length + 2
 		# TODO ??? [List[string]]::new($this.Data)
 
 		$lines = $this.Data.ForEach("ToString")
