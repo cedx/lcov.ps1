@@ -1,3 +1,4 @@
+using namespace System.Collections.Generic
 using module ./Tokens.psm1
 
 <#
@@ -31,12 +32,11 @@ class FunctionCoverage {
 		The string representation of this object.
 	#>
 	[string] ToString() {
-		# $lines = $this.Data.ForEach("ToString")
-		# $lines += "$([Tokens]::FunctionsFound):$($this.Found)"
-		# $lines += "$([Tokens]::FunctionsHit):$($this.Hit)"
-		# return $lines -join "`n"
-		# TODO
-		return ""
+		$lines = [List[string]] [string[]] $this.Data.ForEach("ToString", $true)
+		$lines.AddRange([string[]] $this.Data.ForEach("ToString", $false))
+		$lines.Add("$([Tokens]::FunctionsFound):$($this.Found)")
+		$lines.Add("$([Tokens]::FunctionsHit):$($this.Hit)")
+		return $lines -join "`n"
 	}
 }
 
@@ -56,7 +56,7 @@ class FunctionData {
 	.SYNOPSIS
 		The function name.
 	#>
-	[int] $FunctionName = [string]::Empty
+	[string] $FunctionName = [string]::Empty
 
 	<#
 	.SYNOPSIS

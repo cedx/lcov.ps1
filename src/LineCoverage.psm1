@@ -1,3 +1,4 @@
+using namespace System.Collections.Generic
 using module ./Tokens.psm1
 
 <#
@@ -31,9 +32,9 @@ class LineCoverage {
 		The string representation of this object.
 	#>
 	[string] ToString() {
-		$lines = $this.Data.ForEach("ToString")
-		$lines += "$([Tokens]::LinesFound):$($this.Found)"
-		$lines += "$([Tokens]::LinesHit):$($this.Hit)"
+		$lines = [List[string]] [string[]] $this.Data.ForEach("ToString")
+		$lines.Add("$([Tokens]::LinesFound):$($this.Found)")
+		$lines.Add("$([Tokens]::LinesHit):$($this.Hit)")
 		return $lines -join "`n"
 	}
 }

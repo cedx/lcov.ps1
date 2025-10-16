@@ -6,10 +6,10 @@ using module ../src/FunctionCoverage.psm1
 #>
 Describe "FunctionCoverage" {
 	Describe "ToString" {
-		It "should return a format like 'FNF:<found>\nFNH:<hit>'" {
+		It "should return a format like 'FNF:[Found]\nFNH:[Hit]'" {
 			$data = [FunctionData]@{ ExecutionCount = 3; FunctionName = "main"; LineNumber = 127 }
-			[FunctionCoverage]::new().ToString() | Should -BeExactly "FNF:0`nFNH:0"
-			[FunctionCoverage]@{ Data = @($data); Found = 23; Hit = 11 }.ToString() | Should -BeExactly "FN:127,main`nFNDA:3,main`nFNF:23`nFNH:11"
+			[FunctionCoverage]::new() | Should -BeExactly "FNF:0`nFNH:0"
+			[FunctionCoverage]@{ Data = @($data); Found = 23; Hit = 11 } | Should -BeExactly "FN:127,main`nFNDA:3,main`nFNF:23`nFNH:11"
 		}
 	}
 }
@@ -20,13 +20,13 @@ Describe "FunctionCoverage" {
 #>
 Describe "FunctionData" {
 	Describe "ToString" {
-		It "should return a format like 'FN:<lineNumber>,<functionName>' when used as definition" {
+		It "should return a format like 'FN:[LineNumber],[FunctionName]' when used as definition" {
 			[FunctionData]::new().ToString($true) | Should -BeExactly "FN:0,"
 			$data = [FunctionData]@{ ExecutionCount = 3; FunctionName = "main"; LineNumber = 127 }
 			$data.ToString($true) | Should -BeExactly "FN:127,main"
 		}
 
-		It "should return a format like 'FNDA:<executionCount>,<functionName>' when used as data" {
+		It "should return a format like 'FNDA:[ExecutionCount],[FunctionName]' when used as data" {
 			[FunctionData]::new().ToString($false) | Should -BeExactly "FNDA:0,"
 			$data = [FunctionData]@{ ExecutionCount = 3; FunctionName = "main"; LineNumber = 127 }
 			$data.ToString($false) | Should -BeExactly "FNDA:3,main"
