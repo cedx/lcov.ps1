@@ -32,10 +32,10 @@ class BranchCoverage {
 		The string representation of this object.
 	#>
 	[string] ToString() {
-		$lines = [List[string]] [string[]] $this.Data.ForEach("ToString")
-		$lines.Add("$([Tokens]::BranchesFound):$($this.Found)")
-		$lines.Add("$([Tokens]::BranchesHit):$($this.Hit)")
-		return $lines -join "`n"
+		$output = [List[string]] [string[]] $this.Data.ForEach("ToString")
+		$output.Add("$([Tokens]::BranchesFound):$($this.Found)")
+		$output.Add("$([Tokens]::BranchesHit):$($this.Hit)")
+		return $output -join "`n"
 	}
 }
 

@@ -32,10 +32,10 @@ class LineCoverage {
 		The string representation of this object.
 	#>
 	[string] ToString() {
-		$lines = [List[string]] [string[]] $this.Data.ForEach("ToString")
-		$lines.Add("$([Tokens]::LinesFound):$($this.Found)")
-		$lines.Add("$([Tokens]::LinesHit):$($this.Hit)")
-		return $lines -join "`n"
+		$output = [List[string]] [string[]] $this.Data.ForEach("ToString")
+		$output.Add("$([Tokens]::LinesFound):$($this.Found)")
+		$output.Add("$([Tokens]::LinesHit):$($this.Hit)")
+		return $output -join "`n"
 	}
 }
 
@@ -49,7 +49,7 @@ class LineData {
 	.SYNOPSIS
 		The data checksum.
 	#>
-	[string] $Checksum = [string]::Empty
+	[string] $Checksum = ""
 
 	<#
 	.SYNOPSIS

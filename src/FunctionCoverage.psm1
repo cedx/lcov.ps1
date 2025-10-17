@@ -32,11 +32,11 @@ class FunctionCoverage {
 		The string representation of this object.
 	#>
 	[string] ToString() {
-		$lines = [List[string]] [string[]] $this.Data.ForEach("ToString", $true)
-		$lines.AddRange([string[]] $this.Data.ForEach("ToString", $false))
-		$lines.Add("$([Tokens]::FunctionsFound):$($this.Found)")
-		$lines.Add("$([Tokens]::FunctionsHit):$($this.Hit)")
-		return $lines -join "`n"
+		$output = [List[string]] [string[]] $this.Data.ForEach("ToString", $true)
+		$output.AddRange([string[]] $this.Data.ForEach("ToString", $false))
+		$output.Add("$([Tokens]::FunctionsFound):$($this.Found)")
+		$output.Add("$([Tokens]::FunctionsHit):$($this.Hit)")
+		return $output -join "`n"
 	}
 }
 
@@ -56,7 +56,7 @@ class FunctionData {
 	.SYNOPSIS
 		The function name.
 	#>
-	[string] $FunctionName = [string]::Empty
+	[string] $FunctionName = ""
 
 	<#
 	.SYNOPSIS
