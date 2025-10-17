@@ -10,9 +10,9 @@ using module ../src/SourceFile.psm1
 Describe "SourceFile" {
 	Describe "ToString" {
 		It "should return a format like 'SF:[path]\nend_of_record'" {
-			[SourceFile] "" | Should -BeExactly "SF:`nend_of_record"
+			[SourceFile]::new("") | Should -BeExactly "SF:`nend_of_record"
 
-			$sourceFile = [SourceFile] "/home/cedx/lcov.ps1"
+			$sourceFile = [SourceFile]::new("/home/cedx/lcov.ps1")
 			$sourceFile.Branches = [BranchCoverage]::new()
 			$sourceFile.Functions = [FunctionCoverage]::new()
 			$sourceFile.Lines = [LineCoverage]::new()

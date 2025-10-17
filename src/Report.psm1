@@ -1,4 +1,7 @@
 using namespace System.Collections.Generic
+using module ./BranchCoverage.psm1
+using module ./FunctionCoverage.psm1
+using module ./LineCoverage.psm1
 using module ./SourceFile.psm1
 using module ./Tokens.psm1
 
@@ -52,8 +55,110 @@ class Report {
 	.OUTPUTS
 		The resulting coverage report.
 	#>
-	[Report] Parse([string] $coverage) {
-		return $null
+	static [Report] Parse([string] $coverage) {
+		$offset = 0
+		$report = [Report]::new("")
+		$sourceFile = [SourceFile]::new("")
+
+		foreach ($line in $coverage -split "\r?\n") {
+			$offset++
+			if ([string]::IsNullOrWhiteSpace($line)) { continue }
+
+			$parts = $line.Trim() -split ":"
+			if (($parts.Count -lt 2) -and ($parts[0] -ne [Tokens]::EndOfRecord)) { throw [FormatException] "Invalid token format at line $offset." }
+
+			$data = ($parts[1..($parts.Count - 1)] -join ":") -split ","
+			$token = $parts[0]
+
+			switch ($token) {
+				"TN" {
+					if (-not $report.TestName) { $report.TestName = $data[0] }
+					break
+				}
+				"BRDA" {
+					if ($data.Count -lt 4) { throw [FormatException] "Invalid branch data at line #{offset}." }
+					if ($sourceFile.Branches) {
+						$sourceFile.Branches.Data += [BranchData]@{
+							BlockNumber = $data[1]
+							BranchNumber = $data[2]
+							LineNumber = $data[0]
+							Taken = $data[3] -eq "-" ? 0 : $data[3]
+						}
+					}
+					break
+				}
+				"BRF" {
+					if ($sourceFile.Branches) { $sourceFile.Branches.Found = $data[0] }
+					break
+				}
+				"BRH" {
+					if ($sourceFile.Branches) { $sourceFile.Branches.Hit = $data[0] }
+					break
+				}
+				"FNDA" {
+					if ($data.Count -lt 2) { throw [FormatException] "Invalid function data at line $offset." }
+					if ($sourceFile.Functions) {
+						$items = $sourceFile.Functions.Data.Where{ $_.FunctionName -eq $data[1] }
+						$items.ForEach{ $_.ExecutionCount = $data[0] }
+					}
+					break
+				}
+				"FN" {
+					if ($data.Count -lt 2) { throw [FormatException] "Invalid function name at line $offset." }
+					if ($sourceFile.Functions) {
+						$sourceFile.Functions.Data += [FunctionData]@{
+							FunctionName = $data[1]
+							LineNumber = $data[0]
+						}
+					}
+					break
+				}
+				"FNF" {
+					if ($sourceFile.Functions) { $sourceFile.Functions.Found = $data[0] }
+					break
+				}
+				"FNH" {
+					if ($sourceFile.Functions) { $sourceFile.Functions.Hit = $data[0] }
+					break
+				}
+				"DA" {
+					if ($data.Count -lt 2) { throw [FormatException] "Invalid line data at line $offset." }
+					if ($sourceFile.Lines) {
+						$sourceFile.Lines.Data += [LineData]@{
+							Checksum = $data.Count -ge 3 ? $data[2] : ""
+							ExecutionCount = $data[1]
+							LineNumber = $data[0]
+						}
+					}
+					break
+				}
+				"LF" {
+					if ($sourceFile.Lines) { $sourceFile.Lines.Found = $data[0] }
+					break
+				}
+				"LH" {
+					if ($sourceFile.Lines) { $sourceFile.Lines.Hit = $data[0] }
+					break
+				}
+				"SF" {
+					$sourceFile = [SourceFile] $data[0]
+					$sourceFile.Branches = [BranchCoverage]::new()
+					$sourceFile.Functions = [FunctionCoverage]::new()
+					$sourceFile.Lines = [LineCoverage]::new()
+					break
+				}
+				"end_of_record" {
+					$report.SourceFiles += $sourceFile
+					break
+				}
+				default {
+					throw [FormatException] "Unknown token ""$token"" at line $offset."
+				}
+			}
+		}
+
+		if (-not $report.SourceFiles) { throw [FormatException] "The coverage data is empty or invalid." }
+		return $report
 	}
 
 	<#
@@ -64,8 +169,8 @@ class Report {
 	.OUTPUTS
 		The resulting coverage report, or `$null` if a parsing error occurred.
 	#>
-	[Report] TryParse([string] $coverage) {
-		try { return $this.Parse($coverage) }
+	static [Report] TryParse([string] $coverage) {
+		try { return [Report]::Parse($coverage) }
 		catch { return $null }
 	}
 
@@ -78,7 +183,7 @@ class Report {
 	[string] ToString() {
 		$output = [List[string]]::new()
 		if ($this.TestName) { $output.Add("$([Tokens]::TestName):$($this.TestName)") }
-		$output.AddRange($this.SourceFiles)
+		$output.AddRange([string[]] $this.SourceFiles.ForEach("ToString"))
 		return $output -join "`n"
 	}
 }
