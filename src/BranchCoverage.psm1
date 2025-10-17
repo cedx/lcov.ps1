@@ -17,13 +17,13 @@ class BranchCoverage {
 	.SYNOPSIS
 		The number of branches found.
 	#>
-	[int] $Found = 0
+	[ValidateRange("NonNegative")] [int] $Found = 0
 
 	<#
 	.SYNOPSIS
 		The number of branches hit.
 	#>
-	[int] $Hit = 0
+	[ValidateRange("NonNegative")] [int] $Hit = 0
 
 	<#
 	.SYNOPSIS
@@ -49,25 +49,25 @@ class BranchData {
 	.SYNOPSIS
 		The block number.
 	#>
-	[int] $BlockNumber = 0
+	[ValidateRange("NonNegative")] [int] $BlockNumber = 0
 
 	<#
 	.SYNOPSIS
 		The branch number.
 	#>
-	[int] $BranchNumber = 0
+	[ValidateRange("NonNegative")] [int] $BranchNumber = 0
 
 	<#
 	.SYNOPSIS
 		The line number.
 	#>
-	[int] $LineNumber = 0
+	[ValidateRange("NonNegative")] [int] $LineNumber = 0
 
 	<#
 	.SYNOPSIS
 		A number indicating how often this branch was taken.
 	#>
-	[int] $Taken = 0
+	[ValidateRange("NonNegative")] [int] $Taken = 0
 
 	<#
 	.SYNOPSIS

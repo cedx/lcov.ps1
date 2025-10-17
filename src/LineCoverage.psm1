@@ -17,13 +17,13 @@ class LineCoverage {
 	.SYNOPSIS
 		The number of lines found.
 	#>
-	[int] $Found = 0
+	[ValidateRange("NonNegative")] [int] $Found = 0
 
 	<#
 	.SYNOPSIS
 		The number of lines hit.
 	#>
-	[int] $Hit = 0
+	[ValidateRange("NonNegative")] [int] $Hit = 0
 
 	<#
 	.SYNOPSIS
@@ -55,13 +55,13 @@ class LineData {
 	.SYNOPSIS
 		The execution count.
 	#>
-	[int] $ExecutionCount = 0
+	[ValidateRange("NonNegative")] [int] $ExecutionCount = 0
 
 	<#
 	.SYNOPSIS
 		The line number.
 	#>
-	[int] $LineNumber = 0
+	[ValidateRange("NonNegative")] [int] $LineNumber = 0
 
 	<#
 	.SYNOPSIS
