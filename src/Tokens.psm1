@@ -81,12 +81,4 @@ class Tokens {
 		A test name.
 	#>
 	static [string] $TestName = "TN"
-
-	<#
-	.SYNOPSIS
-		Prevents instantiation of the class.
-	#>
-	hidden Tokens() {
-		throw [NotSupportedException]::new()
-	}
 }
