@@ -68,7 +68,7 @@ Describe "Report" {
 
 	Describe "TryParse" {
 		It "should return a `Report` if the parsing succeeded" {
-			[Report]::TryParse($coverage) | Should -Not -Be $null
+			[Report]::TryParse($coverage) | Should -BeOfType ([Report])
 		}
 
 		It "should return `$null if the parsing failed" {
