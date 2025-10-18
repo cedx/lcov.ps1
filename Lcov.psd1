@@ -9,7 +9,7 @@
 	GUID = "f51ae505-9dca-4371-8f9b-79b24617d59d"
 
 	AliasesToExport = @()
-	CmdletsToExport = @()
+	CmdletsToExport = @("ConvertFrom-Lcov")
 	FunctionsToExport = @()
 	VariablesToExport = @()
 

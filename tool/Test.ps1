@@ -6,7 +6,7 @@ pwsh -Command {
 	if (Get-Module BurntToast -ListAvailable) {
 		Import-Module BurntToast
 		$message = $LASTEXITCODE -eq 0 ? "were successfully completed" : "failed with $LASTEXITCODE $($LASTEXITCODE -gt 1 ? "errors" : "error")"
-		New-BurntToastNotification -AppLogo Program.ico -Text "LCOV Reports", "The tests $message." -UniqueIdentifier Belin.Lcov
+		New-BurntToastNotification -AppLogo Program.ico -Text "LCOV Reports for PowerShell", "The tests $message." -UniqueIdentifier Belin.Lcov
 	}
 
 	exit $LASTEXITCODE
