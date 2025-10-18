@@ -49,12 +49,8 @@ Describe "Report" {
 			$lines.Data[0].Checksum | Should -BeExactly "5kX7OTfHFcjnS98fjeVqNA"
 		}
 
-		It "should throw an error if the input is invalid" {
-			{ [Report]::Parse("ZZ") } | Should -Throw
-		}
-
-		It "should throw an error if the report is empty" {
-			{ [Report]::Parse("TN:Example") } | Should -Throw
+		It "should throw an error if the report is invalid or empty" -TestCases @(@{ Coverage = "ZZ" }, @{ Coverage = "TN:Example" }) {
+			{ [Report]::Parse($coverage) } | Should -Throw
 		}
 	}
 

@@ -2,7 +2,7 @@
 .SYNOPSIS
 	Formats coverage data as LCOV report.
 #>
-using module Belin.Lcov
+using module Lcov
 
 $lineData = @(
 	[LineData]@{ LineNumber = 6; ExecutionCount = 2; Checksum = "PF4Rz2r7RTliO9u6bZ7h6g" }

@@ -2,7 +2,7 @@
 .SYNOPSIS
 	Parses a LCOV report to coverage data.
 #>
-using module Belin.Lcov
+using module Lcov
 
 try {
 	$coverage = Get-Content "/path/to/lcov.info" -Raw
