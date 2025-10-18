@@ -13,11 +13,14 @@
 	FunctionsToExport = @()
 	VariablesToExport = @()
 
-	# TODO ???
-	# RequiredModules = @()
-
-	# List of all modules packaged with this module
-	# ModuleList = @()
+	NestedModules = @(
+		"src/BranchCoverage.psm1"
+		"src/FunctionCoverage.psm1"
+		"src/LineCoverage.psm1"
+		"src/Report.psm1"
+		"src/SourceFile.psm1"
+		"src/Tokens.psm1"
+	)
 
 	PrivateData = @{
 		PSData = @{

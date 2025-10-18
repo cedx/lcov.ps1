@@ -71,11 +71,11 @@ class Report {
 			$token = $parts[0]
 
 			switch ($token) {
-				"TN" {
+				([Tokens]::TestName) {
 					if (-not $report.TestName) { $report.TestName = $data[0] }
 					break
 				}
-				"BRDA" {
+				([Tokens]::BranchData) {
 					if ($data.Count -lt 4) { throw [FormatException] "Invalid branch data at line #{offset}." }
 					if ($sourceFile.Branches) {
 						$sourceFile.Branches.Data += [BranchData]@{
@@ -87,15 +87,15 @@ class Report {
 					}
 					break
 				}
-				"BRF" {
+				([Tokens]::BranchesFound) {
 					if ($sourceFile.Branches) { $sourceFile.Branches.Found = $data[0] }
 					break
 				}
-				"BRH" {
+				([Tokens]::BranchesHit) {
 					if ($sourceFile.Branches) { $sourceFile.Branches.Hit = $data[0] }
 					break
 				}
-				"FNDA" {
+				([Tokens]::FunctionData) {
 					if ($data.Count -lt 2) { throw [FormatException] "Invalid function data at line $offset." }
 					if ($sourceFile.Functions) {
 						$items = $sourceFile.Functions.Data.Where{ $_.FunctionName -eq $data[1] }
@@ -103,7 +103,7 @@ class Report {
 					}
 					break
 				}
-				"FN" {
+				([Tokens]::FunctionName) {
 					if ($data.Count -lt 2) { throw [FormatException] "Invalid function name at line $offset." }
 					if ($sourceFile.Functions) {
 						$sourceFile.Functions.Data += [FunctionData]@{
@@ -113,15 +113,15 @@ class Report {
 					}
 					break
 				}
-				"FNF" {
+				([Tokens]::FunctionsFound) {
 					if ($sourceFile.Functions) { $sourceFile.Functions.Found = $data[0] }
 					break
 				}
-				"FNH" {
+				([Tokens]::FunctionsHit) {
 					if ($sourceFile.Functions) { $sourceFile.Functions.Hit = $data[0] }
 					break
 				}
-				"DA" {
+				([Tokens]::LineData) {
 					if ($data.Count -lt 2) { throw [FormatException] "Invalid line data at line $offset." }
 					if ($sourceFile.Lines) {
 						$sourceFile.Lines.Data += [LineData]@{
@@ -132,22 +132,22 @@ class Report {
 					}
 					break
 				}
-				"LF" {
+				([Tokens]::LinesFound) {
 					if ($sourceFile.Lines) { $sourceFile.Lines.Found = $data[0] }
 					break
 				}
-				"LH" {
+				([Tokens]::LinesHit) {
 					if ($sourceFile.Lines) { $sourceFile.Lines.Hit = $data[0] }
 					break
 				}
-				"SF" {
+				([Tokens]::SourceFile) {
 					$sourceFile = [SourceFile] $data[0]
 					$sourceFile.Branches = [BranchCoverage]::new()
 					$sourceFile.Functions = [FunctionCoverage]::new()
 					$sourceFile.Lines = [LineCoverage]::new()
 					break
 				}
-				"end_of_record" {
+				([Tokens]::EndOfRecord) {
 					$report.SourceFiles += $sourceFile
 					break
 				}
