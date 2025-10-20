@@ -4,7 +4,7 @@ using module ../src/SourceFile.psm1
 
 <#
 .SYNOPSIS
-	Tests the features of the `Report` class.
+	Tests the features of the `Report` module.
 #>
 Describe "Report" {
 	BeforeAll {
@@ -13,7 +13,7 @@ Describe "Report" {
 		$report = [Report]::Parse($coverage)
 	}
 
-	Describe "Parse" {
+	Context "Parse" {
 		It "should have a test name" {
 			$report.TestName | Should -BeExactly "Example"
 		}
@@ -54,7 +54,7 @@ Describe "Report" {
 		}
 	}
 
-	Describe "ToString" {
+	Context "ToString" {
 		It "should return a format like 'TN:[TestName]'" {
 			[Report]::new("") | Should -Be ""
 			$sourceFile = [SourceFile]::new("")
@@ -62,7 +62,7 @@ Describe "Report" {
 		}
 	}
 
-	Describe "TryParse" {
+	Context "TryParse" {
 		It "should return a `Report` if the parsing succeeded" {
 			[Report]::TryParse($coverage) | Should -BeOfType ([Report])
 		}

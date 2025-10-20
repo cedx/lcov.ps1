@@ -5,10 +5,10 @@ using module ../src/SourceFile.psm1
 
 <#
 .SYNOPSIS
-	Tests the features of the `SourceFile` class.
+	Tests the features of the `SourceFile` module.
 #>
 Describe "SourceFile" {
-	Describe "ToString" {
+	Context "ToString" {
 		It "should return a format like 'SF:[path]\nend_of_record'" {
 			[SourceFile]::new("") | Should -BeExactly "SF:`nend_of_record"
 

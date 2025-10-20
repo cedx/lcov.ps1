@@ -5,7 +5,7 @@ using module ../src/FunctionCoverage.psm1
 	Tests the features of the `FunctionCoverage` class.
 #>
 Describe "FunctionCoverage" {
-	Describe "ToString" {
+	Context "ToString" {
 		It "should return a format like 'FNF:[Found]\nFNH:[Hit]'" {
 			$data = [FunctionData]@{ ExecutionCount = 3; FunctionName = "main"; LineNumber = 127 }
 			[FunctionCoverage]::new() | Should -BeExactly "FNF:0`nFNH:0"
@@ -19,7 +19,7 @@ Describe "FunctionCoverage" {
 	Tests the features of the `FunctionData` class.
 #>
 Describe "FunctionData" {
-	Describe "ToString" {
+	Context "ToString" {
 		It "should return a format like 'FN:[LineNumber],[FunctionName]' when used as definition" {
 			[FunctionData]::new().ToString($true) | Should -BeExactly "FN:0,"
 			$data = [FunctionData]@{ ExecutionCount = 3; FunctionName = "main"; LineNumber = 127 }

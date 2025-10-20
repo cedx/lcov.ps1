@@ -5,7 +5,7 @@ using module ../src/BranchCoverage.psm1
 	Tests the features of the `BranchCoverage` class.
 #>
 Describe "BranchCoverage" {
-	Describe "ToString" {
+	Context "ToString" {
 		It "should return a format like 'BRF:[Found]\nBRH:[Hit]'" {
 			$data = [BranchData]@{ BlockNumber = 3; BranchNumber = 2; LineNumber = 127; Taken = 1 }
 			[BranchCoverage]::new() | Should -BeExactly "BRF:0`nBRH:0"
@@ -19,7 +19,7 @@ Describe "BranchCoverage" {
 	Tests the features of the `BranchData` class.
 #>
 Describe "BranchData" {
-	Describe "ToString" {
+	Context "ToString" {
 		It "should return a format like 'BRDA:[LineNumber],[BlockNumber],[BranchNumber],[Taken]'" {
 			[BranchData]::new() | Should -BeExactly "BRDA:0,0,0,-"
 			[BranchData]@{ BlockNumber = 3; BranchNumber = 2; LineNumber = 127; Taken = 1 } | Should -BeExactly "BRDA:127,3,2,1"
