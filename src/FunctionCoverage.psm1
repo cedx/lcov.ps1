@@ -11,7 +11,7 @@ class FunctionCoverage {
 	.SYNOPSIS
 		The coverage data.
 	#>
-	[FunctionData[]] $Data = @()
+	[ValidateNotNull()] [FunctionData[]] $Data = @()
 
 	<#
 	.SYNOPSIS

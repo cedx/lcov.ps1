@@ -15,7 +15,7 @@ class Report {
 	.SYNOPSIS
 		The source file list.
 	#>
-	[SourceFile[]] $SourceFiles
+	[ValidateNotNull()] [SourceFile[]] $SourceFiles
 
 	<#
 	.SYNOPSIS

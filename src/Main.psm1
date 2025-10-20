@@ -1,5 +1,35 @@
 import module ../Report.psm1
 
+function New-LcovBranchCoverage {
+	param (
+		[BranchData[]] $data = @(),
+		[ValidateRange("NonNegative")] [int] $found = 0,
+		[ValidateRange("NonNegative")] [int] $hit = 0
+	)
+
+	[BranchCoverage]@{
+		Data = $data
+		Found = $found
+		Hit = $hit
+	}
+}
+
+function New-LcovBranchData {
+	param (
+		[ValidateRange("NonNegative")] [int] $blockNumber = 0,
+		[ValidateRange("NonNegative")] [int] $branchNumber = 0,
+		[ValidateRange("NonNegative")] [int] $lineNumber = 0,
+		[ValidateRange("NonNegative")] [int] $taken = 0
+	)
+
+	[BranchData]@{
+		BlockNumber = $blockNumber
+		BranchNumber = $branchNumber
+		LineNumber = $lineNumber
+		Taken = $taken
+	}
+}
+
 <#
 TODO
 #>
@@ -27,7 +57,7 @@ function ConvertEachFile {
 .OUTPUTS
 	Lcov.Report
 #>
-function ConvertFrom-Lcov {
+function ConvertFrom-Coverage {
 	[CmdletBinding()] [OutputType([Report])]
 
 	param (
