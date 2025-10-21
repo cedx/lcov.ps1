@@ -14,7 +14,12 @@
 	VariablesToExport = @()
 
 	FunctionsToExport = @(
-
+		"New-BranchCoverage"
+		"New-BranchData"
+		"New-FunctionCoverage"
+		"New-FunctionData"
+		"New-LineCoverage"
+		"New-LineData"
 	)
 
 	NestedModules = @(

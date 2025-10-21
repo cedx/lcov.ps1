@@ -1,31 +1,213 @@
+import module ../BranchCoverage.psm1
+import module ../FunctionCoverage.psm1
+import module ../LineCoverage.psm1
 import module ../Report.psm1
+import module ../SourceFile.psm1
 
-function New-LcovBranchCoverage {
+<#
+.SYNOPSIS
+	Creates a new branch coverage.
+.PARAMETER Data
+	The coverage data.
+.PARAMETER Found
+	The number of branches found.
+.PARAMETER Hit
+	The number of branches hit.
+.INPUTS
+	None.
+.OUTPUTS
+	The newly created branch coverage.
+#>
+function New-BranchCoverage {
 	[CmdletBinding()]
 	param (
-		[BranchData[]] $data = @(),
-		[ValidateRange("NonNegative")] [int] $found = 0,
-		[ValidateRange("NonNegative")] [int] $hit = 0
+		[ValidateNotNull()] [BranchData[]] $Data = @(),
+		[ValidateRange("NonNegative")] [int] $Found = 0,
+		[ValidateRange("NonNegative")] [int] $Hit = 0
 	)
 
 	end {
-		[BranchCoverage]@{ Data = $data; Found = $found; Hit = $hit }
+		[BranchCoverage]@{ Data = $Data; Found = $Found; Hit = $Hit }
 	}
 }
 
-function New-LcovBranchData {
+<#
+.SYNOPSIS
+	Creates new branch data.
+.PARAMETER LineNumber
+	The line number.
+.PARAMETER BlockNumber
+	The block number.
+.PARAMETER BranchNumber
+	The branch number.
+.PARAMETER Taken
+	A number indicating how often this branch was taken.
+.INPUTS
+	None.
+.OUTPUTS
+	The newly created branch data.
+#>
+function New-BranchData {
 	[CmdletBinding()]
 	param (
-		[ValidateRange("NonNegative")] [int] $blockNumber = 0,
-		[ValidateRange("NonNegative")] [int] $branchNumber = 0,
-		[ValidateRange("NonNegative")] [int] $lineNumber = 0,
-		[ValidateRange("NonNegative")] [int] $taken = 0
+		[ValidateRange("NonNegative")] [int] $LineNumber = 0,
+		[ValidateRange("NonNegative")] [int] $BlockNumber = 0,
+		[ValidateRange("NonNegative")] [int] $BranchNumber = 0,
+		[ValidateRange("NonNegative")] [int] $Taken = 0
 	)
 
 	end {
-		[BranchData]@{ BlockNumber = $blockNumber; BranchNumber = $branchNumber; LineNumber = $lineNumber; Taken = $taken }
+		[BranchData]@{ BlockNumber = $BlockNumber; BranchNumber = $BranchNumber; LineNumber = $LineNumber; Taken = $Taken }
 	}
 }
+
+<#
+.SYNOPSIS
+	Creates a new function coverage.
+.PARAMETER Data
+	The coverage data.
+.PARAMETER Found
+	The number of functions found.
+.PARAMETER Hit
+	The number of functions hit.
+.INPUTS
+	None.
+.OUTPUTS
+	The newly created function coverage.
+#>
+function New-FunctionCoverage {
+	[CmdletBinding()]
+	param (
+		[ValidateNotNull()] [FunctionData[]] $Data = @(),
+		[ValidateRange("NonNegative")] [int] $Found = 0,
+		[ValidateRange("NonNegative")] [int] $Hit = 0
+	)
+
+	end {
+		[FunctionCoverage]@{ Data = $Data; Found = $Found; Hit = $Hit }
+	}
+}
+
+<#
+.SYNOPSIS
+	Creates new function data.
+.PARAMETER FunctionName
+	The function name.
+.PARAMETER LineNumber
+	The line number of the function start.
+.PARAMETER ExecutionCount
+	The execution count.
+.INPUTS
+	A string that contains a function name.
+.OUTPUTS
+	The newly created function data.
+#>
+function New-FunctionData {
+	[CmdletBinding()]
+	param (
+		[Parameter(Mandatory, Position = 0, ValueFromPipeline)] [ValidateNotNullOrWhiteSpace()] [string] $FunctionName,
+		[ValidateRange("NonNegative")] [int] $LineNumber = 0,
+		[ValidateRange("NonNegative")] [int] $ExecutionCount = 0
+	)
+
+	end {
+		[FunctionData]@{ ExecutionCount = $ExecutionCount; FunctionName = $FunctionName; LineNumber = $LineNumber }
+	}
+}
+
+<#
+.SYNOPSIS
+	Creates a new line coverage.
+.PARAMETER Data
+	The coverage data.
+.PARAMETER Found
+	The number of lines found.
+.PARAMETER Hit
+	The number of lines hit.
+.INPUTS
+	None.
+.OUTPUTS
+	The newly created line coverage.
+#>
+function New-LineCoverage {
+	[CmdletBinding()]
+	param (
+		[ValidateNotNull()] [LineData[]] $Data = @(),
+		[ValidateRange("NonNegative")] [int] $Found = 0,
+		[ValidateRange("NonNegative")] [int] $Hit = 0
+	)
+
+	end {
+		[LineCoverage]@{ Data = $Data; Found = $Found; Hit = $Hit }
+	}
+}
+
+<#
+.SYNOPSIS
+	Creates new line data.
+.PARAMETER ExecutionCount
+	The execution count.
+.PARAMETER LineNumber
+	The line number.
+.PARAMETER Checksum
+	The data checksum.
+.INPUTS
+	None.
+.OUTPUTS
+	The newly created line data.
+#>
+function New-LineData {
+	[CmdletBinding()]
+	param (
+		[ValidateRange("NonNegative")] [int] $LineNumber = 0,
+		[ValidateRange("NonNegative")] [int] $ExecutionCount = 0,
+		[string] $Checksum = ""
+	)
+
+	end {
+		[LineData]@{ Checksum = $Checksum; ExecutionCount = $ExecutionCount; LineNumber = $LineNumber }
+	}
+}
+
+<#
+.SYNOPSIS
+	Creates a new source file.
+.PARAMETER Path
+	The path to the source file.
+.PARAMETER Branches
+	The branch coverage.
+.PARAMETER Functions
+	The function coverage.
+.PARAMETER Lines
+	The line coverage.
+.INPUTS
+	A string that contains a path to a source file.
+.OUTPUTS
+	The newly created source file.
+#>
+function New-SourceFile {
+	[CmdletBinding()]
+	param (
+		[Parameter(Mandatory, Position = 0, ValueFromPipeline)] [ValidateNotNullOrWhiteSpace()] [string] $Path,
+		[BranchCoverage] $Branches = $null,
+		[FunctionCoverage] $Functions = $null,
+		[LineCoverage] $Lines = $null
+	)
+
+	end {
+		[SourceFile]@{ Branches = $Branches; Functions = $Functions; Lines = $Lines; Path = $Path }
+	}
+}
+
+
+
+
+
+
+
+
+
+
 
 <#
 TODO
