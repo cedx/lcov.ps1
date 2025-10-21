@@ -57,7 +57,7 @@ function New-BranchData {
 	)
 
 	end {
-		[BranchData]@{ BlockNumber = $BlockNumber; BranchNumber = $BranchNumber; LineNumber = $LineNumber; Taken = $Taken }
+		[BranchData]@{ LineNumber = $LineNumber; BlockNumber = $BlockNumber; BranchNumber = $BranchNumber; Taken = $Taken }
 	}
 }
 
@@ -111,7 +111,7 @@ function New-FunctionData {
 	)
 
 	end {
-		[FunctionData]@{ ExecutionCount = $ExecutionCount; FunctionName = $FunctionName; LineNumber = $LineNumber }
+		[FunctionData]@{ FunctionName = $FunctionName; LineNumber = $LineNumber; ExecutionCount = $ExecutionCount }
 	}
 }
 
@@ -165,7 +165,31 @@ function New-LineData {
 	)
 
 	end {
-		[LineData]@{ Checksum = $Checksum; ExecutionCount = $ExecutionCount; LineNumber = $LineNumber }
+		[LineData]@{ LineNumber = $LineNumber; ExecutionCount = $ExecutionCount; Checksum = $Checksum }
+	}
+}
+
+<#
+.SYNOPSIS
+	Creates a new report.
+.PARAMETER TestName
+	The test name.
+.PARAMETER SourceFiles
+	The source file list.
+.INPUTS
+	A string that contains the name of a test.
+.OUTPUTS
+	The newly created report.
+#>
+function New-Report {
+	[CmdletBinding()]
+	param (
+		[Parameter(Mandatory, Position = 0, ValueFromPipeline)] [ValidateNotNullOrWhiteSpace()] [string] $TestName,
+		[ValidateNotNull()] [SourceFile[]] $SourceFiles = @()
+	)
+
+	end {
+		[Report]@{ TestName = $TestName; SourceFiles = $SourceFiles }
 	}
 }
 
@@ -195,7 +219,7 @@ function New-SourceFile {
 	)
 
 	end {
-		[SourceFile]@{ Branches = $Branches; Functions = $Functions; Lines = $Lines; Path = $Path }
+		[SourceFile]@{ Path = $Path; Branches = $Branches; Functions = $Functions; Lines = $Lines }
 	}
 }
 

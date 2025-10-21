@@ -20,6 +20,8 @@
 		"New-FunctionData"
 		"New-LineCoverage"
 		"New-LineData"
+		"New-Report"
+		"New-SourceFile"
 	)
 
 	NestedModules = @(
