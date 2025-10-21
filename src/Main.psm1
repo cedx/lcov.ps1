@@ -1,20 +1,20 @@
 import module ../Report.psm1
 
 function New-LcovBranchCoverage {
+	[CmdletBinding()]
 	param (
 		[BranchData[]] $data = @(),
 		[ValidateRange("NonNegative")] [int] $found = 0,
 		[ValidateRange("NonNegative")] [int] $hit = 0
 	)
 
-	[BranchCoverage]@{
-		Data = $data
-		Found = $found
-		Hit = $hit
+	end {
+		[BranchCoverage]@{ Data = $data; Found = $found; Hit = $hit }
 	}
 }
 
 function New-LcovBranchData {
+	[CmdletBinding()]
 	param (
 		[ValidateRange("NonNegative")] [int] $blockNumber = 0,
 		[ValidateRange("NonNegative")] [int] $branchNumber = 0,
@@ -22,11 +22,8 @@ function New-LcovBranchData {
 		[ValidateRange("NonNegative")] [int] $taken = 0
 	)
 
-	[BranchData]@{
-		BlockNumber = $blockNumber
-		BranchNumber = $branchNumber
-		LineNumber = $lineNumber
-		Taken = $taken
+	end {
+		[BranchData]@{ BlockNumber = $blockNumber; BranchNumber = $branchNumber; LineNumber = $lineNumber; Taken = $taken }
 	}
 }
 
@@ -58,8 +55,8 @@ function ConvertEachFile {
 	Lcov.Report
 #>
 function ConvertFrom-Coverage {
-	[CmdletBinding()] [OutputType([Report])]
-
+	[CmdletBinding()]
+	[OutputType([Report])]
 	param (
 		[ValidateNotNullOrEmpty()] [Parameter(Mandatory, ParameterSetName = "Path", Position = 0)] [string] $path,
 		[ValidateNotNullOrEmpty()] [Parameter(Mandatory, ParameterSetName = "LiteralPath")] [string] $literalPath,
