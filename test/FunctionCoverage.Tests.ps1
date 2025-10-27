@@ -2,7 +2,7 @@ using module ../src/FunctionCoverage.psm1
 
 <#
 .SYNOPSIS
-	Tests the features of the `FunctionCoverage` class.
+	Tests the features of the `FunctionCoverage` module.
 #>
 Describe "FunctionCoverage" {
 	Context "ToString" {
@@ -16,7 +16,7 @@ Describe "FunctionCoverage" {
 
 <#
 .SYNOPSIS
-	Tests the features of the `FunctionData` class.
+	Tests the features of the `FunctionData` module.
 #>
 Describe "FunctionData" {
 	Context "ToString" {

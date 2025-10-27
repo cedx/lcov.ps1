@@ -2,21 +2,21 @@ using module ../src/LineCoverage.psm1
 
 <#
 .SYNOPSIS
-	Tests the features of the `LineCoverage` class.
+	Tests the features of the `LineCoverage` module.
 #>
 Describe "LineCoverage" {
 	Context "ToString" {
 		It "should return a format like 'LF:[Found]\nLH:[Hit]'" {
 			$data = [LineData]@{ ExecutionCount = 3; LineNumber = 127 }
 			[LineCoverage]::new() | Should -BeExactly "LF:0`nLH:0"
-			[LineCoverage]@{ Data = @($data); Found = 23; Hit = 11 }| Should -BeExactly "$data`nLF:23`nLH:11"
+			[LineCoverage]@{ Data = @($data); Found = 23; Hit = 11 } | Should -BeExactly "$data`nLF:23`nLH:11"
 		}
 	}
 }
 
 <#
 .SYNOPSIS
-	Tests the features of the `LineData` class.
+	Tests the features of the `LineData` module.
 #>
 Describe "LineData" {
 	Context "ToString" {

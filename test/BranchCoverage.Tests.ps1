@@ -2,7 +2,7 @@ using module ../src/BranchCoverage.psm1
 
 <#
 .SYNOPSIS
-	Tests the features of the `BranchCoverage` class.
+	Tests the features of the `BranchCoverage` module.
 #>
 Describe "BranchCoverage" {
 	Context "ToString" {
@@ -16,7 +16,7 @@ Describe "BranchCoverage" {
 
 <#
 .SYNOPSIS
-	Tests the features of the `BranchData` class.
+	Tests the features of the `BranchData` module.
 #>
 Describe "BranchData" {
 	Context "ToString" {
