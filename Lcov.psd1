@@ -8,6 +8,7 @@
 	DefaultCommandPrefix = "Lcov"
 	Description = "Parse and format to LCOV your code coverage reports."
 	GUID = "f51ae505-9dca-4371-8f9b-79b24617d59d"
+	PowerShellVersion = "7.5"
 
 	AliasesToExport = @()
 	CmdletsToExport = @()
