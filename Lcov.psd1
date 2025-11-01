@@ -1,14 +1,14 @@
 @{
+	DefaultCommandPrefix = "Lcov"
 	ModuleVersion = "0.1.0"
+	PowerShellVersion = "7.5"
 	RootModule = "src/Main.psm1"
 
 	Author = "Cédric Belin <cedx@outlook.com>"
 	CompanyName = "Cedric-Belin.fr"
 	Copyright = "© Cédric Belin"
-	DefaultCommandPrefix = "Lcov"
 	Description = "Parse and format to LCOV your code coverage reports."
 	GUID = "f51ae505-9dca-4371-8f9b-79b24617d59d"
-	PowerShellVersion = "7.5"
 
 	AliasesToExport = @()
 	CmdletsToExport = @()
