@@ -11,19 +11,22 @@ class FunctionCoverage {
 	.SYNOPSIS
 		The coverage data.
 	#>
-	[ValidateNotNull()] [FunctionData[]] $Data = @()
+	[ValidateNotNull()]
+	[FunctionData[]] $Data = @()
 
 	<#
 	.SYNOPSIS
 		The number of functions found.
 	#>
-	[ValidateRange("NonNegative")] [int] $Found = 0
+	[ValidateRange("NonNegative")]
+	[int] $Found = 0
 
 	<#
 	.SYNOPSIS
 		The number of functions hit.
 	#>
-	[ValidateRange("NonNegative")] [int] $Hit = 0
+	[ValidateRange("NonNegative")]
+	[int] $Hit = 0
 
 	<#
 	.SYNOPSIS
@@ -50,7 +53,8 @@ class FunctionData {
 	.SYNOPSIS
 		The execution count.
 	#>
-	[ValidateRange("NonNegative")] [int] $ExecutionCount = 0
+	[ValidateRange("NonNegative")]
+	[int] $ExecutionCount = 0
 
 	<#
 	.SYNOPSIS
@@ -62,7 +66,8 @@ class FunctionData {
 	.SYNOPSIS
 		The line number of the function start.
 	#>
-	[ValidateRange("NonNegative")] [int] $LineNumber = 0
+	[ValidateRange("NonNegative")]
+	[int] $LineNumber = 0
 
 	<#
 	.SYNOPSIS
