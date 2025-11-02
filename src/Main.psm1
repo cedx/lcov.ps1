@@ -1,8 +1,8 @@
-import module ../BranchCoverage.psm1
-import module ../FunctionCoverage.psm1
-import module ../LineCoverage.psm1
-import module ../Report.psm1
-import module ../SourceFile.psm1
+using module ./BranchCoverage.psm1
+using module ./FunctionCoverage.psm1
+using module ./LineCoverage.psm1
+using module ./Report.psm1
+using module ./SourceFile.psm1
 
 <#
 .SYNOPSIS
@@ -13,8 +13,6 @@ import module ../SourceFile.psm1
 	The number of branches found.
 .PARAMETER Hit
 	The number of branches hit.
-.INPUTS
-	None.
 .OUTPUTS
 	The newly created branch coverage.
 #>
@@ -26,9 +24,7 @@ function New-BranchCoverage {
 		[ValidateRange("NonNegative")] [int] $Hit = 0
 	)
 
-	end {
-		[BranchCoverage]@{ Data = $Data; Found = $Found; Hit = $Hit }
-	}
+	[BranchCoverage]@{ Data = $Data; Found = $Found; Hit = $Hit }
 }
 
 <#
@@ -42,8 +38,6 @@ function New-BranchCoverage {
 	The branch number.
 .PARAMETER Taken
 	A number indicating how often this branch was taken.
-.INPUTS
-	None.
 .OUTPUTS
 	The newly created branch data.
 #>
@@ -56,9 +50,7 @@ function New-BranchData {
 		[ValidateRange("NonNegative")] [int] $Taken = 0
 	)
 
-	end {
-		[BranchData]@{ LineNumber = $LineNumber; BlockNumber = $BlockNumber; BranchNumber = $BranchNumber; Taken = $Taken }
-	}
+	[BranchData]@{ LineNumber = $LineNumber; BlockNumber = $BlockNumber; BranchNumber = $BranchNumber; Taken = $Taken }
 }
 
 <#
@@ -70,8 +62,6 @@ function New-BranchData {
 	The number of functions found.
 .PARAMETER Hit
 	The number of functions hit.
-.INPUTS
-	None.
 .OUTPUTS
 	The newly created function coverage.
 #>
@@ -83,9 +73,7 @@ function New-FunctionCoverage {
 		[ValidateRange("NonNegative")] [int] $Hit = 0
 	)
 
-	end {
-		[FunctionCoverage]@{ Data = $Data; Found = $Found; Hit = $Hit }
-	}
+	[FunctionCoverage]@{ Data = $Data; Found = $Found; Hit = $Hit }
 }
 
 <#
@@ -105,14 +93,12 @@ function New-FunctionCoverage {
 function New-FunctionData {
 	[CmdletBinding()]
 	param (
-		[Parameter(Mandatory, Position = 0, ValueFromPipeline)] [ValidateNotNullOrWhiteSpace()] [string] $FunctionName,
+		[string] $FunctionName = "",
 		[ValidateRange("NonNegative")] [int] $LineNumber = 0,
 		[ValidateRange("NonNegative")] [int] $ExecutionCount = 0
 	)
 
-	end {
-		[FunctionData]@{ FunctionName = $FunctionName; LineNumber = $LineNumber; ExecutionCount = $ExecutionCount }
-	}
+	[FunctionData]@{ FunctionName = $FunctionName; LineNumber = $LineNumber; ExecutionCount = $ExecutionCount }
 }
 
 <#
@@ -124,8 +110,6 @@ function New-FunctionData {
 	The number of lines found.
 .PARAMETER Hit
 	The number of lines hit.
-.INPUTS
-	None.
 .OUTPUTS
 	The newly created line coverage.
 #>
@@ -137,9 +121,7 @@ function New-LineCoverage {
 		[ValidateRange("NonNegative")] [int] $Hit = 0
 	)
 
-	end {
-		[LineCoverage]@{ Data = $Data; Found = $Found; Hit = $Hit }
-	}
+	[LineCoverage]@{ Data = $Data; Found = $Found; Hit = $Hit }
 }
 
 <#
@@ -151,8 +133,6 @@ function New-LineCoverage {
 	The line number.
 .PARAMETER Checksum
 	The data checksum.
-.INPUTS
-	None.
 .OUTPUTS
 	The newly created line data.
 #>
@@ -164,9 +144,7 @@ function New-LineData {
 		[string] $Checksum = ""
 	)
 
-	end {
-		[LineData]@{ LineNumber = $LineNumber; ExecutionCount = $ExecutionCount; Checksum = $Checksum }
-	}
+	[LineData]@{ LineNumber = $LineNumber; ExecutionCount = $ExecutionCount; Checksum = $Checksum }
 }
 
 <#
@@ -188,9 +166,7 @@ function New-Report {
 		[ValidateNotNull()] [SourceFile[]] $SourceFiles = @()
 	)
 
-	end {
-		[Report]@{ TestName = $TestName; SourceFiles = $SourceFiles }
-	}
+	[Report]@{ TestName = $TestName; SourceFiles = $SourceFiles }
 }
 
 <#
@@ -218,9 +194,7 @@ function New-SourceFile {
 		[LineCoverage] $Lines = $null
 	)
 
-	end {
-		[SourceFile]@{ Path = $Path; Branches = $Branches; Functions = $Functions; Lines = $Lines }
-	}
+	[SourceFile]@{ Path = $Path; Branches = $Branches; Functions = $Functions; Lines = $Lines }
 }
 
 
@@ -236,17 +210,17 @@ function New-SourceFile {
 <#
 TODO
 #>
-function ConvertEachFile {
-	param(
-		[Parameter(Mandatory, Position = 0)] [string[]] $paths,
-		[switch] $isLiteral
-	)
+# function ConvertEachFile {
+# 	param(
+# 		[Parameter(Mandatory, Position = 0)] [string[]] $paths,
+# 		[switch] $isLiteral
+# 	)
 
-	foreach ($path in $paths) {
-		$resolvedPath = $isLiteral ? (Resolve-Path -LiteralPath $path) : (Resolve-Path $path)
+# 	foreach ($path in $paths) {
+# 		$resolvedPath = $isLiteral ? (Resolve-Path -LiteralPath $path) : (Resolve-Path $path)
 
-	}
-}
+# 	}
+# }
 
 <#
 .SYNOPSIS
@@ -260,30 +234,36 @@ function ConvertEachFile {
 .OUTPUTS
 	Lcov.Report
 #>
-function ConvertFrom-Coverage {
-	[CmdletBinding()]
-	[OutputType([Report])]
-	param (
-		[ValidateNotNullOrEmpty()] [Parameter(Mandatory, ParameterSetName = "Path", Position = 0)] [string] $path,
-		[ValidateNotNullOrEmpty()] [Parameter(Mandatory, ParameterSetName = "LiteralPath")] [string] $literalPath,
-		[ValidateNotNullOrEmpty()] [Parameter(Mandatory, ParameterSetName = "InputObject", ValueFromPipeline)][psobject] $inputObject
-	)
+# function ConvertFrom-Coverage {
+# 	[CmdletBinding()]
+# 	[OutputType([Report])]
+# 	param (
+# 		[Parameter(Mandatory, ParameterSetName = "Path", Position = 0)]
+# 		[ValidateNotNullOrEmpty()]
+# 		[string] $Path,
 
-	process {
-		switch ($PSCmdlet.ParameterSetName) {
-			"InputObject" {
+# 		[ValidateNotNullOrEmpty()] [Parameter(Mandatory, ParameterSetName = "LiteralPath")]
+# 		[string] $LiteralPath,
 
-			}
+# 		[ValidateNotNullOrEmpty()] [Parameter(Mandatory, ParameterSetName = "InputObject", ValueFromPipeline)]
+# 		[psobject] $InputObject
+# 	)
 
-			"LiteralPath" {
-				$resolvedPaths = Resolve-Path -LiteralPath $path
-				$report = [Report]::TryParse($resolvedPath)
-			}
+# 	process {
+# 		switch ($PSCmdlet.ParameterSetName) {
+# 			"InputObject" {
 
-			"Path" {
-				$resolvedPaths = Resolve-Path -Path $path
-				$report = [Report]::TryParse($resolvedPath)
-			}
-		}
-	}
-}
+# 			}
+
+# 			"LiteralPath" {
+# 				$resolvedPaths = Resolve-Path -LiteralPath $path
+# 				$report = [Report]::TryParse($resolvedPath)
+# 			}
+
+# 			"Path" {
+# 				$resolvedPaths = Resolve-Path -Path $path
+# 				$report = [Report]::TryParse($resolvedPath)
+# 			}
+# 		}
+# 	}
+# }
