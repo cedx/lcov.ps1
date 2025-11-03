@@ -63,7 +63,7 @@ Describe "Report" {
 	}
 
 	Context "TryParse" {
-		It "should return a `Report` if the parsing succeeded" {
+		It "should return a [Report] if the parsing succeeded" {
 			[Report]::TryParse($coverage) | Should -BeOfType ([Report])
 		}
 
