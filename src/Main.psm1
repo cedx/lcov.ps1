@@ -18,10 +18,16 @@ using module ./SourceFile.psm1
 #>
 function New-BranchCoverage {
 	[CmdletBinding()]
+	[OutputType([BranchCoverage])]
 	param (
-		[ValidateNotNull()] [BranchData[]] $Data = @(),
-		[ValidateRange("NonNegative")] [int] $Found = 0,
-		[ValidateRange("NonNegative")] [int] $Hit = 0
+		[ValidateNotNull()]
+		[BranchData[]] $Data = @(),
+
+		[ValidateRange("NonNegative")]
+		[int] $Found = 0,
+
+		[ValidateRange("NonNegative")]
+		[int] $Hit = 0
 	)
 
 	[BranchCoverage]@{ Data = $Data; Found = $Found; Hit = $Hit }
@@ -43,11 +49,19 @@ function New-BranchCoverage {
 #>
 function New-BranchData {
 	[CmdletBinding()]
+	[OutputType([BranchData])]
 	param (
-		[ValidateRange("NonNegative")] [int] $LineNumber = 0,
-		[ValidateRange("NonNegative")] [int] $BlockNumber = 0,
-		[ValidateRange("NonNegative")] [int] $BranchNumber = 0,
-		[ValidateRange("NonNegative")] [int] $Taken = 0
+		[ValidateRange("NonNegative")]
+		[int] $LineNumber = 0,
+
+		[ValidateRange("NonNegative")]
+		[int] $BlockNumber = 0,
+
+		[ValidateRange("NonNegative")]
+		[int] $BranchNumber = 0,
+
+		[ValidateRange("NonNegative")]
+		[int] $Taken = 0
 	)
 
 	[BranchData]@{ LineNumber = $LineNumber; BlockNumber = $BlockNumber; BranchNumber = $BranchNumber; Taken = $Taken }
@@ -67,10 +81,16 @@ function New-BranchData {
 #>
 function New-FunctionCoverage {
 	[CmdletBinding()]
+	[OutputType([FunctionCoverage])]
 	param (
-		[ValidateNotNull()] [FunctionData[]] $Data = @(),
-		[ValidateRange("NonNegative")] [int] $Found = 0,
-		[ValidateRange("NonNegative")] [int] $Hit = 0
+		[ValidateNotNull()]
+		[FunctionData[]] $Data = @(),
+
+		[ValidateRange("NonNegative")]
+		[int] $Found = 0,
+
+		[ValidateRange("NonNegative")]
+		[int] $Hit = 0
 	)
 
 	[FunctionCoverage]@{ Data = $Data; Found = $Found; Hit = $Hit }
@@ -92,10 +112,16 @@ function New-FunctionCoverage {
 #>
 function New-FunctionData {
 	[CmdletBinding()]
+	[OutputType([FunctionData])]
 	param (
+		[ValidateNotNullOrWhiteSpace()]
 		[string] $FunctionName = "",
-		[ValidateRange("NonNegative")] [int] $LineNumber = 0,
-		[ValidateRange("NonNegative")] [int] $ExecutionCount = 0
+
+		[ValidateRange("NonNegative")]
+		[int] $LineNumber = 0,
+
+		[ValidateRange("NonNegative")]
+		[int] $ExecutionCount = 0
 	)
 
 	[FunctionData]@{ FunctionName = $FunctionName; LineNumber = $LineNumber; ExecutionCount = $ExecutionCount }
@@ -115,10 +141,16 @@ function New-FunctionData {
 #>
 function New-LineCoverage {
 	[CmdletBinding()]
+	[OutputType([LineCoverage])]
 	param (
-		[ValidateNotNull()] [LineData[]] $Data = @(),
-		[ValidateRange("NonNegative")] [int] $Found = 0,
-		[ValidateRange("NonNegative")] [int] $Hit = 0
+		[ValidateNotNull()]
+		[LineData[]] $Data = @(),
+
+		[ValidateRange("NonNegative")]
+		[int] $Found = 0,
+
+		[ValidateRange("NonNegative")]
+		[int] $Hit = 0
 	)
 
 	[LineCoverage]@{ Data = $Data; Found = $Found; Hit = $Hit }
@@ -138,9 +170,15 @@ function New-LineCoverage {
 #>
 function New-LineData {
 	[CmdletBinding()]
+	[OutputType([LineData])]
 	param (
-		[ValidateRange("NonNegative")] [int] $LineNumber = 0,
-		[ValidateRange("NonNegative")] [int] $ExecutionCount = 0,
+		[ValidateRange("NonNegative")]
+		[int] $LineNumber = 0,
+
+		[ValidateRange("NonNegative")]
+		[int] $ExecutionCount = 0,
+
+		[ValidateNotNullOrWhiteSpace()]
 		[string] $Checksum = ""
 	)
 
@@ -161,12 +199,19 @@ function New-LineData {
 #>
 function New-Report {
 	[CmdletBinding()]
+	[OutputType([Report])]
 	param (
-		[Parameter(Mandatory, Position = 0, ValueFromPipeline)] [ValidateNotNullOrWhiteSpace()] [string] $TestName,
-		[ValidateNotNull()] [SourceFile[]] $SourceFiles = @()
+		[Parameter(Mandatory, Position = 0, ValueFromPipeline)]
+		[ValidateNotNullOrWhiteSpace()]
+		[string] $TestName,
+
+		[ValidateNotNull()]
+		[SourceFile[]] $SourceFiles = @()
 	)
 
-	[Report]@{ TestName = $TestName; SourceFiles = $SourceFiles }
+	process {
+		[Report]@{ TestName = $TestName; SourceFiles = $SourceFiles }
+	}
 }
 
 <#
@@ -187,40 +232,49 @@ function New-Report {
 #>
 function New-SourceFile {
 	[CmdletBinding()]
+	[OutputType([SourceFile])]
 	param (
-		[Parameter(Mandatory, Position = 0, ValueFromPipeline)] [ValidateNotNullOrWhiteSpace()] [string] $Path,
-		[BranchCoverage] $Branches = $null,
-		[FunctionCoverage] $Functions = $null,
-		[LineCoverage] $Lines = $null
+		[Parameter(Mandatory, Position = 0, ValueFromPipeline)]
+		[ValidateNotNullOrWhiteSpace()]
+		[string] $Path,
+
+		[Parameter()]
+		[BranchCoverage] $Branches,
+
+		[Parameter()]
+		[FunctionCoverage] $Functions,
+
+		[Parameter()]
+		[LineCoverage] $Lines
 	)
 
-	[SourceFile]@{ Path = $Path; Branches = $Branches; Functions = $Functions; Lines = $Lines }
+	process {
+		[SourceFile]@{ Path = $Path; Branches = $Branches; Functions = $Functions; Lines = $Lines }
+	}
 }
-
-
-
-
-
-
-
-
 
 
 
 <#
 TODO
 #>
-# function ConvertEachFile {
-# 	param(
-# 		[Parameter(Mandatory, Position = 0)] [string[]] $paths,
-# 		[switch] $isLiteral
-# 	)
+function Get-Report {
+	[CmdletBinding()]
+	[OutputType([SourceFile])]
+	param (
+		[Parameter(Mandatory, Position = 0, ValueFromPipeline)]
+		[ValidateNotNullOrWhiteSpace()]
+		[string] $Content
+	)
 
-# 	foreach ($path in $paths) {
-# 		$resolvedPath = $isLiteral ? (Resolve-Path -LiteralPath $path) : (Resolve-Path $path)
+	process {
 
-# 	}
-# }
+	}
+}
+
+
+
+
 
 <#
 .SYNOPSIS
