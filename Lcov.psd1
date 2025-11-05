@@ -1,4 +1,4 @@
-@{
+﻿@{
 	DefaultCommandPrefix = "Lcov"
 	ModuleVersion = "0.1.0"
 	PowerShellVersion = "7.4"
@@ -15,6 +15,7 @@
 	VariablesToExport = @()
 
 	FunctionsToExport = @(
+		"Get-Report"
 		"New-BranchCoverage"
 		"New-BranchData"
 		"New-FunctionCoverage"

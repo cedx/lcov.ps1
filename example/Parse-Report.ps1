@@ -2,11 +2,13 @@
 .SYNOPSIS
 	Parses a LCOV report to coverage data.
 #>
-using module Lcov
+Import-Module ../Lcov.psd1
+# TODO  Import-Module Lcov
 
 try {
-	$coverage = Get-Content "/path/to/lcov.info" -Raw
-	$report = [Report]::Parse($coverage)
+	#TODO $coverage = Get-Content "/path/to/lcov.info"
+	$coverage = Get-Content "../res/Lcov.info" -Raw
+	$report = Get-LcovReport $coverage
 	Write-Output "The coverage report contains $($report.SourceFiles.Count) source files:"
 	Write-Output (ConvertTo-Json $report)
 }
