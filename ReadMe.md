@@ -1,5 +1,5 @@
 # LCOV Reports for PowerShell
-![PowerShell](https://badgen.net/static/powershell/%3E%3D7.5/green) ![PSGallery](https://badgen.net/static/module/v0.1.0/blue) ![License](https://badgen.net/static/license/MIT/blue)
+![PowerShell](https://badgen.net/static/powershell/%3E%3D7.4/green) ![PSGallery](https://badgen.net/static/module/v0.1.0/blue) ![License](https://badgen.net/static/license/MIT/blue)
 
 Parse and format [LCOV](https://github.com/linux-test-project/lcov) coverage reports,
 in [PowerShell](https://learn.microsoft.com/en-us/powershell).
