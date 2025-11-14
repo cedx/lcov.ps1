@@ -15,20 +15,19 @@ using module ./SourceFile.psm1
 .PARAMETER InputObject
 	The input object of type `System.IO.FileInfo` or `string` with LCOV content to convert.
 .OUTPUTS
-	Lcov.Report
+	TODO
 #>
 # function ConvertFrom-Coverage {
 # 	[CmdletBinding()]
 # 	[OutputType([Report])]
 # 	param (
 # 		[Parameter(Mandatory, ParameterSetName = "Path", Position = 0)]
-# 		[ValidateNotNullOrEmpty()]
 # 		[string] $Path,
 
-# 		[ValidateNotNullOrEmpty()] [Parameter(Mandatory, ParameterSetName = "LiteralPath")]
+# 		[Parameter(Mandatory, ParameterSetName = "LiteralPath")]
 # 		[string] $LiteralPath,
 
-# 		[ValidateNotNullOrEmpty()] [Parameter(Mandatory, ParameterSetName = "InputObject", ValueFromPipeline)]
+# 		[Parameter(Mandatory, ParameterSetName = "InputObject", ValueFromPipeline)]
 # 		[psobject] $InputObject
 # 	)
 
@@ -59,12 +58,11 @@ function Get-Report {
 	[OutputType([SourceFile])]
 	param (
 		[Parameter(Mandatory, Position = 0, ValueFromPipeline)]
-		[ValidateNotNullOrWhiteSpace()]
 		[string] $Content
 	)
 
 	process {
-
+		# TODO
 	}
 }
 
@@ -182,8 +180,8 @@ function New-FunctionData {
 	[OutputType([FunctionData])]
 	[SuppressMessage("PSUseShouldProcessForStateChangingFunctions", "")]
 	param (
-		[ValidateNotNullOrWhiteSpace()]
-		[string] $FunctionName = "",
+		[Parameter(Mandatory, Position = 0)]
+		[string] $FunctionName,
 
 		[ValidateRange("NonNegative")]
 		[int] $LineNumber = 0,
@@ -248,7 +246,7 @@ function New-LineData {
 		[ValidateRange("NonNegative")]
 		[int] $ExecutionCount = 0,
 
-		[ValidateNotNullOrWhiteSpace()]
+		[Parameter()]
 		[string] $Checksum = ""
 	)
 
@@ -272,17 +270,14 @@ function New-Report {
 	[OutputType([Report])]
 	[SuppressMessage("PSUseShouldProcessForStateChangingFunctions", "")]
 	param (
-		[Parameter(Mandatory, Position = 0, ValueFromPipeline)]
-		[ValidateNotNullOrWhiteSpace()]
+		[Parameter(Mandatory, Position = 0)]
 		[string] $TestName,
 
 		[ValidateNotNull()]
 		[SourceFile[]] $SourceFiles = @()
 	)
 
-	process {
-		[Report]@{ TestName = $TestName; SourceFiles = $SourceFiles }
-	}
+	[Report]@{ TestName = $TestName; SourceFiles = $SourceFiles }
 }
 
 <#
@@ -306,8 +301,7 @@ function New-SourceFile {
 	[OutputType([SourceFile])]
 	[SuppressMessage("PSUseShouldProcessForStateChangingFunctions", "")]
 	param (
-		[Parameter(Mandatory, Position = 0, ValueFromPipeline)]
-		[ValidateNotNullOrWhiteSpace()]
+		[Parameter(Mandatory, Position = 0)]
 		[string] $Path,
 
 		[Parameter()]
@@ -320,7 +314,5 @@ function New-SourceFile {
 		[LineCoverage] $Lines
 	)
 
-	process {
-		[SourceFile]@{ Path = $Path; Branches = $Branches; Functions = $Functions; Lines = $Lines }
-	}
+	[SourceFile]@{ Path = $Path; Branches = $Branches; Functions = $Functions; Lines = $Lines }
 }
