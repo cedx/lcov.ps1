@@ -61,8 +61,12 @@ class Report {
 	#>
 	static [Report] Parse([string] $Coverage) {
 		$offset = 0
-		$report = [Report] ""
+		$report = [Report]::new("")
+
 		$sourceFile = [SourceFile] ""
+		$sourceFile.Branches = [BranchCoverage]::new()
+		$sourceFile.Functions = [FunctionCoverage]::new()
+		$sourceFile.Lines = [LineCoverage]::new()
 
 		foreach ($line in $Coverage -split "\r?\n") {
 			$offset++
@@ -74,65 +78,63 @@ class Report {
 			$data = ($parts[1..$parts.Count] -join ":") -split ","
 			$token = $parts[0]
 
-			switch ($token) {
+			switch -CaseSensitive ($token) {
 				([Tokens]::TestName) {
 					if ([string]::IsNullOrWhiteSpace($report.TestName)) { $report.TestName = $data[0] }
 					break
 				}
 				([Tokens]::BranchData) {
 					if ($data.Count -lt 4) { throw [FormatException] "Invalid branch data at line #$offset." }
-					$sourceFile.Branches?.Data.Add([BranchData]@{
+					$sourceFile.Branches.Data += [BranchData]@{
 						BlockNumber = $data[1]
 						BranchNumber = $data[2]
 						LineNumber = $data[0]
 						Taken = $data[3] -eq "-" ? 0 : $data[3]
-					})
+					}
 					break
 				}
 				([Tokens]::BranchesFound) {
-					if ($sourceFile.Branches) { $sourceFile.Branches.Found = $data[0] }
+					$sourceFile.Branches.Found = $data[0]
 					break
 				}
 				([Tokens]::BranchesHit) {
-					if ($sourceFile.Branches) { $sourceFile.Branches.Hit = $data[0] }
+					$sourceFile.Branches.Hit = $data[0]
 					break
 				}
 				([Tokens]::FunctionData) {
 					if ($data.Count -lt 2) { throw [FormatException] "Invalid function data at line #$offset." }
-					if ($sourceFile.Functions) {
-						$items = $sourceFile.Functions.Data.Where{ $_.FunctionName -eq $data[1] }
-						foreach ($item in $items) { $item.ExecutionCount = $data[0] }
-					}
+					$items = $sourceFile.Functions.Data.Where{ $_.FunctionName -eq $data[1] }
+					foreach ($item in $items) { $item.ExecutionCount = $data[0] }
 					break
 				}
 				([Tokens]::FunctionsFound) {
-					if ($sourceFile.Functions) { $sourceFile.Functions.Found = $data[0] }
+					$sourceFile.Functions.Found = $data[0]
 					break
 				}
 				([Tokens]::FunctionsHit) {
-					if ($sourceFile.Functions) { $sourceFile.Functions.Hit = $data[0]}
+					$sourceFile.Functions.Hit = $data[0]
 					break
 				}
 				([Tokens]::FunctionName) {
 					if ($data.Count -lt 2) { throw [FormatException] "Invalid function name at line #$offset." }
-					$sourceFile.Functions?.Data.Add([FunctionData]@{ FunctionName = $data[1]; LineNumber = $data[0] })
+					$sourceFile.Functions.Data += [FunctionData]@{ FunctionName = $data[1]; LineNumber = $data[0] }
 					break
 				}
 				([Tokens]::LineData) {
 					if ($data.Count -lt 2) { throw [FormatException] "Invalid line data at line #$offset." }
-					$sourceFile.Lines?.Data.Add([LineData]@{
+					$sourceFile.Lines.Data += [LineData]@{
 						Checksum = $data.Count -ge 3 ? $data[2] : ""
 						ExecutionCount = $data[1]
 						LineNumber = $data[0]
-					})
+					}
 					break
 				}
 				([Tokens]::LinesFound) {
-					if ($sourceFile.Lines) { $sourceFile.Lines.Found = $data[0] }
+					$sourceFile.Lines.Found = $data[0]
 					break
 				}
 				([Tokens]::LinesHit) {
-					if ($sourceFile.Lines) { $sourceFile.Lines.Hit = $data[0] }
+					$sourceFile.Lines.Hit = $data[0]
 					break
 				}
 				([Tokens]::SourceFile) {
@@ -143,7 +145,7 @@ class Report {
 					break
 				}
 				([Tokens]::EndOfRecord) {
-					$report.SourceFiles.Add($sourceFile)
+					$report.SourceFiles += $sourceFile
 					break
 				}
 				default {
