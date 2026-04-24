@@ -46,7 +46,7 @@ class Report {
 	.PARAMETER SourceFiles
 		The source file list.
 	#>
-	Report([string] $TestName, [IEnumerable[SourceFile]] $SourceFiles) {
+	Report([string] $TestName, [SourceFile[]] $SourceFiles) {
 		$this.SourceFiles = $SourceFiles
 		$this.TestName = $TestName
 	}
@@ -152,7 +152,7 @@ class Report {
 			}
 		}
 
-		if (-not $report.SourceFiles.Count) { throw [FormatException] "The coverage data is empty or invalid." }
+		if (-not $report.SourceFiles) { throw [FormatException] "The coverage data is empty or invalid." }
 		return $report
 	}
 
