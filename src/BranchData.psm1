@@ -4,6 +4,7 @@ using module ./Tokens.psm1
 .SYNOPSIS
 	Provides details for branch coverage.
 #>
+[NoRunspaceAffinity()]
 class BranchData {
 
 	<#
@@ -41,7 +42,7 @@ class BranchData {
 		The string representation of this object.
 	#>
 	[string] ToString() {
-		$value = "$([Tokens]::BranchData):$($this.LineNumber),$($this.BlockNumber),$($this.BranchNumber)";
-		return $this.Taken ? "$value,$($this.Taken)" : "$value,-";
+		$value = "$([Tokens]::BranchData):$($this.LineNumber),$($this.BlockNumber),$($this.BranchNumber)"
+		return $this.Taken ? "$value,$($this.Taken)" : "$value,-"
 	}
 }
