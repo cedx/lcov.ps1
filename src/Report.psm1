@@ -166,7 +166,7 @@ class Report {
 	[string] ToString() {
 		return @(
 			$this.TestName ? @("$([Tokens]::TestName):$($this.TestName)") : @()
-			$this.SourceFiles.ForEach{ $_.ToString() }
+			$this.SourceFiles.ForEach{ [string] $_ }
 		) -join "`n"
 	}
 }

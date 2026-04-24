@@ -37,7 +37,7 @@ class FunctionCoverage {
 	#>
 	[string] ToString() {
 		return @(
-			$this.Data.ForEach{ $_.ToString() }
+			$this.Data.ForEach{ [string] $_ }
 			"$([Tokens]::FunctionsFound):$($this.Found)"
 			"$([Tokens]::FunctionsHit):$($this.Hit)"
 		) -join "`n"

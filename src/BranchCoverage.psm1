@@ -37,7 +37,7 @@ class BranchCoverage {
 	#>
 	[string] ToString() {
 		return @(
-			$this.Data.ForEach{ $_.ToString() }
+			$this.Data.ForEach{ [string] $_ }
 			"$([Tokens]::BranchesFound):$($this.Found)"
 			"$([Tokens]::BranchesHit):$($this.Hit)"
 		) -join "`n"

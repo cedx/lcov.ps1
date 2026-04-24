@@ -37,7 +37,7 @@ class LineCoverage {
 	#>
 	[string] ToString() {
 		return @(
-			$this.Data.ForEach{ $_.ToString() }
+			$this.Data.ForEach{ [string] $_ }
 			"$([Tokens]::LinesFound):$($this.Found)"
 			"$([Tokens]::LinesHit):$($this.Hit)"
 		) -join "`n"
