@@ -7,7 +7,7 @@ using module ../src/FunctionData.psm1
 #>
 Describe "FunctionCoverage" {
 	Context "ToString" {
-		It "should return a format like 'FNF:<found>\nFNH:<hit>'" {
+		It "should return a format like 'FNF:<Found>\nFNH:<Hit>'" {
 			[FunctionCoverage]::new().ToString() | Should -BeExactly "FNF:0`nFNH:0"
 
 			$data = [FunctionData]@{ ExecutionCount = 3; FunctionName = "main"; LineNumber = 127 }

@@ -1,3 +1,5 @@
+using module ../Report.psm1
+using module ../SourceFile.psm1
 
 <#
 .SYNOPSIS

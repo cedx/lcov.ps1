@@ -1,4 +1,6 @@
 using namespace System.Diagnostics.CodeAnalysis
+using module ../LineCoverage.psm1
+using module ../LineData.psm1
 
 <#
 .SYNOPSIS

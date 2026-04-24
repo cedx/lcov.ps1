@@ -1,4 +1,6 @@
 using namespace System.Diagnostics.CodeAnalysis
+using module ../FunctionCoverage.psm1
+using module ../FunctionData.psm1
 
 <#
 .SYNOPSIS

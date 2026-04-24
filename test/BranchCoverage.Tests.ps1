@@ -7,7 +7,7 @@ using module ../src/BranchData.psm1
 #>
 Describe "BranchCoverage" {
 	Context "ToString" {
-		It "should return a format like 'BRF:<found>\nBRH:<hit>'" {
+		It "should return a format like 'BRF:<Found>\nBRH:<Hit>'" {
 			[BranchCoverage]::new().ToString() | Should -BeExactly "BRF:0`nBRH:0"
 
 			$data = [BranchData]@{ BlockNumber = 3; BranchNumber = 2; LineNumber = 127; Taken = 1 }

@@ -7,7 +7,7 @@ using module ../src/LineData.psm1
 #>
 Describe "LineCoverage" {
 	Context "ToString" {
-		It "should return a format like 'LF:<found>\nLH:<hit>'" {
+		It "should return a format like 'LF:<Found>\nLH:<Hit>'" {
 			[LineCoverage]::new().ToString() | Should -BeExactly "LF:0`nLH:0"
 
 			$data = [LineData]@{ ExecutionCount = 3; LineNumber = 127 }

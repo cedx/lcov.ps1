@@ -1,3 +1,7 @@
+using module ../BranchCoverage.psm1
+using module ../FunctionCoverage.psm1
+using module ../LineCoverage.psm1
+using module ../SourceFile.psm1
 
 <#
 .SYNOPSIS
@@ -23,7 +27,7 @@ function New-SourceFile {
 		[LineCoverage] $Lines
 	)
 
-	$sourceFile = [SourceFile]::new($Path)
+	$sourceFile = [SourceFile] $Path
 	$sourceFile.Branches = $Branches
 	$sourceFile.Functions = $Functions
 	$sourceFile.Lines = $Lines

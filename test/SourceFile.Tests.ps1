@@ -9,7 +9,7 @@ using module ../src/SourceFile.psm1
 #>
 Describe "SourceFile" {
 	Context "ToString" {
-		It "should return a format like 'SF:<path>\nend_of_record'" {
+		It "should return a format like 'SF:<Path>\nend_of_record'" {
 			[SourceFile]::new("").ToString() | Should -BeExactly "SF:`nend_of_record"
 
 			$sourceFile = [SourceFile] "/home/cedx/lcov.ps1/program.psm1"

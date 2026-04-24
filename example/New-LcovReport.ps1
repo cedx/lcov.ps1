@@ -10,6 +10,6 @@ $lineCoverage = New-LcovLineCoverage -Found 2 -Hit 1 -Data @(
 	New-LcovLineData -LineNumber 7 -ExecutionCount 2 -Checksum "yGMB6FhEEAd8OyASe3Ni1w"
 )
 
-$sourceFile = New-LcovSourceFile "/home/cedx/lcov.ps1/fixture.cs" -Functions $functionCoverage -Lines $lineCoverage
+$sourceFile = New-LcovSourceFile "/home/cedx/lcov.ps1/fixture.psm1" -Functions $functionCoverage -Lines $lineCoverage
 $report = New-LcovReport -TestName "Example" -SourceFiles $sourceFile
 Write-Output $report.ToString()

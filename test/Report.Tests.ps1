@@ -58,7 +58,7 @@ Describe "Report" {
 	}
 
 	Describe "ToString" {
-		It "should return a format like 'TN:<testName>'" {
+		It "should return a format like 'TN:<TestName>'" {
 			[Report]::new("").ToString() | Should -BeNullOrEmpty
 
 			$sourceFile = [SourceFile] ""
