@@ -1,6 +1,6 @@
 @{
 	DefaultCommandPrefix = "Lcov"
-	ModuleVersion = "3.0.0"
+	ModuleVersion = "1.0.0"
 	PowerShellVersion = "7.6"
 
 	Author = "Cédric Belin <cedx@outlook.com>"
