@@ -18,6 +18,25 @@ function New-GitTag {
 
 <#
 .SYNOPSIS
+	Publishes the project package to the PowerShell Gallery registry.
+#>
+function Publish-PSGalleryModule {
+	$root = Join-Path $PSScriptRoot ..
+
+	$output = "$root/var/PSModule"
+	New-Item $output -ItemType Directory | Out-Null
+	Copy-Item $root/Lcov.psd1 $output/Belin.Lcov.psd1
+	Copy-Item $root/*.md $output
+	Copy-Item $root/src $output -Recurse
+
+	$output = "$root/var/PSGallery"
+	New-Item $output -ItemType Directory | Out-Null
+	Compress-PSResource $root/var/PSModule $output
+	foreach ($package in Get-Item $output/*.nupkg) { Publish-PSResource -ApiKey $Env:PSGALLERY_API_KEY -NupkgPath $package -Repository PSGallery }
+}
+
+<#
+.SYNOPSIS
 	Checks whether an update is available for the specified PowerShell module.
 .INPUTS
 	The PowerShell module to be checked.
