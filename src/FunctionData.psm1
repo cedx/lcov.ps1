@@ -35,20 +35,12 @@ class FunctionData {
 		The string representation of this object.
 	#>
 	[string] ToString() {
+		return @(
+			"$([Tokens]::FunctionName):$($this.LineNumber),$($this.FunctionName)"
+			"$([Tokens]::FunctionData):$($this.ExecutionCount),$($this.FunctionName)"
+		) -join "\n"
+
 		return $this.ToString($false)
 	}
-
-	<#
-	.SYNOPSIS
-		Returns a string representation of this object.
-	.PARAMETER AsDefinition
-		Whether to return the function definition instead of its data.
-	.OUTPUTS
-		The string representation of this object.
-	#>
-	[string] ToString([bool] $AsDefinition) {
-		$token = $AsDefinition ? [Tokens]::FunctionName : [Tokens]::FunctionData
-		$count = $AsDefinition ? $this.LineNumber : $this.ExecutionCount
-		return "${token}:$count,$($this.FunctionName)"
 	}
 }
