@@ -1,4 +1,3 @@
-using namespace System.Collections.Generic
 using module ./BranchCoverage.psm1
 using module ./BranchData.psm1
 using module ./FunctionCoverage.psm1
@@ -20,7 +19,7 @@ class Report {
 		The source file list.
 	#>
 	[ValidateNotNull()]
-	[IList[SourceFile]] $SourceFiles
+	[SourceFile[]] $SourceFiles
 
 	<#
 	.SYNOPSIS
@@ -36,8 +35,8 @@ class Report {
 		The test name.
 	#>
 	Report([string] $TestName) {
-		$this.TestName = $TestName
 		$this.SourceFiles = @()
+		$this.TestName = $TestName
 	}
 
 	<#
@@ -49,8 +48,8 @@ class Report {
 		The source file list.
 	#>
 	Report([string] $TestName, [IEnumerable[SourceFile]] $SourceFiles) {
-		$this.TestName = $TestName
 		$this.SourceFiles = $SourceFiles
+		$this.TestName = $TestName
 	}
 
 	<#

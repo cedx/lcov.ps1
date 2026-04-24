@@ -1,4 +1,3 @@
-using namespace System.Collections.Generic
 using module ./LineData.psm1
 using module ./Tokens.psm1
 
@@ -14,7 +13,7 @@ class LineCoverage {
 		The coverage data.
 	#>
 	[ValidateNotNull()]
-	[IList[LineData]] $Data = @()
+	[LineData[]] $Data = @()
 
 	<#
 	.SYNOPSIS

@@ -1,4 +1,3 @@
-using namespace System.Collections.Generic
 using module ./BranchData.psm1
 using module ./Tokens.psm1
 
@@ -14,7 +13,7 @@ class BranchCoverage {
 		The coverage data.
 	#>
 	[ValidateNotNull()]
-	[IList[BranchData]] $Data = @()
+	[BranchData[]] $Data = @()
 
 	<#
 	.SYNOPSIS

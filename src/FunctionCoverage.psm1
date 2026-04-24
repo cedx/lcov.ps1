@@ -1,4 +1,3 @@
-using namespace System.Collections.Generic
 using module ./FunctionData.psm1
 using module ./Tokens.psm1
 
@@ -14,7 +13,7 @@ class FunctionCoverage {
 		The coverage data.
 	#>
 	[ValidateNotNull()]
-	[IList[FunctionData]] $Data = @()
+	[FunctionData[]] $Data = @()
 
 	<#
 	.SYNOPSIS
