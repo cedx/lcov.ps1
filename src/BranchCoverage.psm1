@@ -14,7 +14,7 @@ class BranchCoverage {
 		The coverage data.
 	#>
 	[ValidateNotNull()]
-	[List[BranchData]] $Data = @()
+	[IList[BranchData]] $Data = @()
 
 	<#
 	.SYNOPSIS

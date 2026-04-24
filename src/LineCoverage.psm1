@@ -14,7 +14,7 @@ class LineCoverage {
 		The coverage data.
 	#>
 	[ValidateNotNull()]
-	[List[LineData]] $Data = @()
+	[IList[LineData]] $Data = @()
 
 	<#
 	.SYNOPSIS

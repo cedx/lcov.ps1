@@ -14,7 +14,7 @@ class FunctionCoverage {
 		The coverage data.
 	#>
 	[ValidateNotNull()]
-	[List[FunctionData]] $Data = @()
+	[IList[FunctionData]] $Data = @()
 
 	<#
 	.SYNOPSIS
