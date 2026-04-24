@@ -1,0 +1,17 @@
+using module ../src/LineCoverage.psm1
+using module ../src/LineData.psm1
+
+<#
+.SYNOPSIS
+	Tests the features of the `LineCoverage` class.
+#>
+Describe "LineCoverage" {
+	Context "ToString" {
+		It "should return a format like 'LF:<found>\nLH:<hit>'" {
+			[LineCoverage]::new().ToString() | Should -BeExactly "LF:0`nLH:0"
+
+			$data = [LineData]@{ ExecutionCount = 3; LineNumber = 127 }
+			([LineCoverage]@{ Data = @($data); Found = 23; Hit = 11 }).ToString() | Should -BeExactly "$data`nLF:23`nLH:11"
+		}
+	}
+}
