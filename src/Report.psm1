@@ -11,7 +11,6 @@ using module ./Tokens.psm1
 .SYNOPSIS
 	Represents a trace file, that is a coverage report.
 #>
-[NoRunspaceAffinity()]
 class Report {
 
 	<#

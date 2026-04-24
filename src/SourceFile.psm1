@@ -54,9 +54,9 @@ class SourceFile {
 	#>
 	[string] ToString() {
 		[List[string]] $output = , "$([Tokens]::SourceFile):$($this.Path)"
-		if ($this.Functions) { $output.Add($this.Functions.ToString()) } # TODO .toString required ?!?
-		if ($this.Branches) { $output.Add($this.Branches.ToString()) }
-		if ($this.Lines) { $output.Add($this.Lines.ToString()) }
+		if ($this.Functions) { $output.Add($this.Functions) }
+		if ($this.Branches) { $output.Add($this.Branches) }
+		if ($this.Lines) { $output.Add($this.Lines) }
 		$output.Add([Tokens]::EndOfRecord)
 		return $output -join "`n"
 	}

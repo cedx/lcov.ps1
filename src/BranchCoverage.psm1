@@ -5,7 +5,6 @@ using module ./Tokens.psm1
 .SYNOPSIS
 	Provides the coverage data of branches.
 #>
-[NoRunspaceAffinity()]
 class BranchCoverage {
 
 	<#
