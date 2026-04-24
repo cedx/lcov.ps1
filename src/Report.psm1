@@ -168,6 +168,6 @@ class Report {
 		return @(
 			$this.TestName ? @("$([Tokens]::TestName):$($this.TestName)") : @()
 			$this.SourceFiles.ForEach{ $_.ToString() }
-		) -join "\n"
+		) -join "`n"
 	}
 }

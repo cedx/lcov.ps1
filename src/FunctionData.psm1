@@ -38,9 +38,6 @@ class FunctionData {
 		return @(
 			"$([Tokens]::FunctionName):$($this.LineNumber),$($this.FunctionName)"
 			"$([Tokens]::FunctionData):$($this.ExecutionCount),$($this.FunctionName)"
-		) -join "\n"
-
-		return $this.ToString($false)
-	}
+		) -join "`n"
 	}
 }

@@ -41,6 +41,6 @@ class LineCoverage {
 			$this.Data.ForEach{ $_.ToString() }
 			"$([Tokens]::LinesFound):$($this.Found)"
 			"$([Tokens]::LinesHit):$($this.Hit)"
-		) -join "\n"
+		) -join "`n"
 	}
 }

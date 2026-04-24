@@ -58,6 +58,6 @@ class SourceFile {
 		if ($this.Branches) { $output.Add($this.Branches.ToString()) }
 		if ($this.Lines) { $output.Add($this.Lines.ToString()) }
 		$output.Add([Tokens]::EndOfRecord)
-		return $output -join "\n"
+		return $output -join "`n"
 	}
 }
