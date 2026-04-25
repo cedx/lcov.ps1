@@ -1,4 +1,3 @@
-using namespace System.Diagnostics.CodeAnalysis
 using module ../LineCoverage.psm1
 using module ../LineData.psm1
 
@@ -11,7 +10,6 @@ using module ../LineData.psm1
 function New-LineCoverage {
 	[CmdletBinding()]
 	[OutputType([LineCoverage])]
-	[SuppressMessage("PSUseOutputTypeCorrectly", "")]
 	param (
 		# The coverage data.
 		[ValidateNotNull()]

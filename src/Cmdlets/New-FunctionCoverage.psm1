@@ -1,4 +1,3 @@
-using namespace System.Diagnostics.CodeAnalysis
 using module ../FunctionCoverage.psm1
 using module ../FunctionData.psm1
 
@@ -11,7 +10,6 @@ using module ../FunctionData.psm1
 function New-FunctionCoverage {
 	[CmdletBinding()]
 	[OutputType([FunctionCoverage])]
-	[SuppressMessage("PSUseOutputTypeCorrectly", "")]
 	param (
 		# The coverage data.
 		[ValidateNotNull()]

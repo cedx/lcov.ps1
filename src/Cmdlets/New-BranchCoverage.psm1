@@ -1,4 +1,3 @@
-using namespace System.Diagnostics.CodeAnalysis
 using module ../BranchCoverage.psm1
 using module ../BranchData.psm1
 
@@ -11,7 +10,6 @@ using module ../BranchData.psm1
 function New-BranchCoverage {
 	[CmdletBinding()]
 	[OutputType([BranchCoverage])]
-	[SuppressMessage("PSUseOutputTypeCorrectly", "")]
 	param (
 		# The coverage data.
 		[ValidateNotNull()]
