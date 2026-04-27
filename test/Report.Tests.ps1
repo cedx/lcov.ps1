@@ -12,7 +12,7 @@ Describe "Report" {
 		$report = [Report]::Parse((Get-Content "$PSScriptRoot/../res/Lcov.info" -Raw))
 	}
 
-	Describe "Parse" {
+	Context "Parse" {
 		It "should have a test name" {
 			$report.TestName | Should -BeExactly "Example"
 		}
@@ -57,7 +57,7 @@ Describe "Report" {
 		}
 	}
 
-	Describe "ToString" {
+	Context "ToString" {
 		It "should return a format like 'TN:<TestName>'" {
 			[Report]::new("").ToString() | Should -BeNullOrEmpty
 
