@@ -1,6 +1,7 @@
 @{
 	ModuleVersion = "1.1.0"
 	PowerShellVersion = "7.6"
+	RootModule = "src/Main.psm1"
 
 	Author = "Cédric Belin <cedx@outlook.com>"
 	CompanyName = "Cedric-Belin.fr"
@@ -22,18 +23,6 @@
 		"New-LcovLineData"
 		"New-LcovReport"
 		"New-LcovSourceFile"
-	)
-
-	NestedModules = @(
-		"src/Cmdlets/ConvertFrom-Info.psm1"
-		"src/Cmdlets/New-BranchCoverage.psm1"
-		"src/Cmdlets/New-BranchData.psm1"
-		"src/Cmdlets/New-FunctionCoverage.psm1"
-		"src/Cmdlets/New-FunctionData.psm1"
-		"src/Cmdlets/New-LineCoverage.psm1"
-		"src/Cmdlets/New-LineData.psm1"
-		"src/Cmdlets/New-Report.psm1"
-		"src/Cmdlets/New-SourceFile.psm1"
 	)
 
 	PrivateData = @{
