@@ -9,7 +9,7 @@ using module ../SourceFile.psm1
 .OUTPUTS
 	The newly created source file.
 #>
-function New-SourceFile {
+function New-LcovSourceFile {
 	[CmdletBinding()]
 	[OutputType([SourceFile])]
 	param (

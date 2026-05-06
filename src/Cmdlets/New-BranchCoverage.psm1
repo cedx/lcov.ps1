@@ -7,7 +7,7 @@ using module ../BranchData.psm1
 .OUTPUTS
 	The newly created branch coverage.
 #>
-function New-BranchCoverage {
+function New-LcovBranchCoverage {
 	[CmdletBinding()]
 	[OutputType([BranchCoverage])]
 	param (

@@ -1,5 +1,4 @@
 @{
-	DefaultCommandPrefix = "Lcov"
 	ModuleVersion = "1.0.1"
 	PowerShellVersion = "7.6"
 
@@ -14,15 +13,15 @@
 	VariablesToExport = @()
 
 	FunctionsToExport = @(
-		"ConvertFrom-Info"
-		"New-BranchCoverage"
-		"New-BranchData"
-		"New-FunctionCoverage"
-		"New-FunctionData"
-		"New-LineCoverage"
-		"New-LineData"
-		"New-Report"
-		"New-SourceFile"
+		"ConvertFrom-LcovInfo"
+		"New-LcovBranchCoverage"
+		"New-LcovBranchData"
+		"New-LcovFunctionCoverage"
+		"New-LcovFunctionData"
+		"New-LcovLineCoverage"
+		"New-LcovLineData"
+		"New-LcovReport"
+		"New-LcovSourceFile"
 	)
 
 	NestedModules = @(

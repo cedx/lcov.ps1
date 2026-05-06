@@ -6,7 +6,7 @@ using module ../LineData.psm1
 .OUTPUTS
 	The newly created line data.
 #>
-function New-LineData {
+function New-LcovLineData {
 	[CmdletBinding()]
 	[OutputType([LineData])]
 	param (

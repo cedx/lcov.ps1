@@ -7,7 +7,7 @@ using module ../LineData.psm1
 .OUTPUTS
 	The newly created line coverage.
 #>
-function New-LineCoverage {
+function New-LcovLineCoverage {
 	[CmdletBinding()]
 	[OutputType([LineCoverage])]
 	param (

@@ -7,7 +7,7 @@ using module ../SourceFile.psm1
 .OUTPUTS
 	The newly created report.
 #>
-function New-Report {
+function New-LcovReport {
 	[CmdletBinding()]
 	[OutputType([Report])]
 	param (

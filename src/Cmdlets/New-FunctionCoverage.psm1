@@ -7,7 +7,7 @@ using module ../FunctionData.psm1
 .OUTPUTS
 	The newly created function coverage.
 #>
-function New-FunctionCoverage {
+function New-LcovFunctionCoverage {
 	[CmdletBinding()]
 	[OutputType([FunctionCoverage])]
 	param (

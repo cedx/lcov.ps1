@@ -6,7 +6,7 @@ using module ../FunctionData.psm1
 .OUTPUTS
 	The newly created function data.
 #>
-function New-FunctionData {
+function New-LcovFunctionData {
 	[CmdletBinding()]
 	[OutputType([FunctionData])]
 	param (

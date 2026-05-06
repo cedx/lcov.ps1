@@ -8,7 +8,7 @@ using module ../Report.psm1
 .OUTPUTS
 	The report corresponding to the specified LCOV file.
 #>
-function ConvertFrom-Info {
+function ConvertFrom-LcovInfo {
 	[CmdletBinding(DefaultParameterSetName = "Path")]
 	[OutputType([Report])]
 	param (

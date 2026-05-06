@@ -6,7 +6,7 @@ using module ../BranchData.psm1
 .OUTPUTS
 	The newly created branch data.
 #>
-function New-BranchData {
+function New-LcovBranchData {
 	[CmdletBinding()]
 	[OutputType([BranchData])]
 	param (
