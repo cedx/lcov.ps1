@@ -1,4 +1,5 @@
 using namespace System.Diagnostics.CodeAnalysis
+using module ../../Lcov.psd1
 
 <#
 .SYNOPSIS
@@ -6,7 +7,6 @@ using namespace System.Diagnostics.CodeAnalysis
 #>
 Describe "ConvertFrom-Info" {
 	BeforeAll {
-		Import-Module "$PSScriptRoot/../../Lcov.psd1"
 		[SuppressMessage("PSUseDeclaredVarsMoreThanAssignments", "")]
 		$report = ConvertFrom-LcovInfo "$PSScriptRoot/../../res" -Filter "*.info"
 	}

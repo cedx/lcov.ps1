@@ -1,12 +1,10 @@
+using module ../../Lcov.psd1
+
 <#
 .SYNOPSIS
 	Tests the features of the `New-LineCoverage` cmdlet.
 #>
 Describe "New-LineCoverage" {
-	BeforeAll {
-		Import-Module "$PSScriptRoot/../../Lcov.psd1"
-	}
-
 	It "should return a format like 'LF:[Found]\nLH:[Hit]'" {
 		$data = New-LcovLineData -ExecutionCount 3 -LineNumber 127
 		New-LcovLineCoverage | Should -BeExactly "LF:0`nLH:0"

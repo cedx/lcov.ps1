@@ -2,7 +2,7 @@
 .SYNOPSIS
 	Parses a LCOV report to coverage data.
 #>
-Import-Module Belin.Lcov
+using module Belin.Lcov
 
 $report = ConvertFrom-LcovInfo "/path/to/lcov.info"
 Write-Output "The coverage report contains $($report.SourceFiles.Count) source files:"
