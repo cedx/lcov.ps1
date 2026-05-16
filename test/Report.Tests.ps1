@@ -19,9 +19,9 @@ Describe "Report" {
 
 		It "should contain three source files" {
 			$report.SourceFiles | Should -HaveCount 3
-			$report.SourceFiles[0].Path | Should -BeExactly "/home/cedx/lcov.ps1/fixture.psm1"
-			$report.SourceFiles[1].Path | Should -BeExactly "/home/cedx/lcov.ps1/func1.psm1"
-			$report.SourceFiles[2].Path | Should -BeExactly "/home/cedx/lcov.ps1/func2.psm1"
+			$report.SourceFiles[0].Path | Should -BeExactly "/home/CedX/Lcov.ps1/Fixture.psm1"
+			$report.SourceFiles[1].Path | Should -BeExactly "/home/CedX/Lcov.ps1/Func1.psm1"
+			$report.SourceFiles[2].Path | Should -BeExactly "/home/CedX/Lcov.ps1/Func2.psm1"
 		}
 
 		It "should have detailed branch coverage" {

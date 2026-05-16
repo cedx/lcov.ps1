@@ -12,7 +12,7 @@ $lineCoverage = New-LcovLineCoverage -Found 2 -Hit 1 -Data @(
   New-LcovLineData -LineNumber 7 -ExecutionCount 2 -Checksum "yGMB6FhEEAd8OyASe3Ni1w"
 )
 
-$sourceFile = New-LcovSourceFile "/home/cedx/lcov.ps1/fixture.psm1" -Functions $functionCoverage -Lines $lineCoverage
+$sourceFile = New-LcovSourceFile "/home/CedX/Lcov.ps1/Fixture.psm1" -Functions $functionCoverage -Lines $lineCoverage
 $report = New-LcovReport -TestName "Example" -SourceFiles $sourceFile
 Write-Output $report.ToString()
 ```
@@ -21,7 +21,7 @@ The `Report.ToString()` method will return a [LCOV](https://github.com/linux-tes
 
 ```lcov
 TN:Example
-SF:/home/cedx/lcov.ps1/fixture.psm1
+SF:/home/CedX/Lcov.ps1/Fixture.psm1
 FNF:1
 FNH:1
 DA:6,2,PF4Rz2r7RTliO9u6bZ7h6g
@@ -32,5 +32,5 @@ end_of_record
 ```
 
 > [!TIP]
-> See the [source code](https://github.com/cedx/lcov.ps1/tree/main/src/Cmdlets) of this module
+> See the [source code](https://github.com/CedX/Lcov.ps1/tree/main/src/Cmdlets) of this module
 > for detailed information on the available cmdlets.
